@@ -12,7 +12,7 @@ function Hero() {
       </video>
       <div className="absolute top-[50%] grid grid-cols-2 px-24 gap-4 place-items-center">
         <motion.p
-          className="text-justify"
+          className={` text-center italic`}
           variants={fadeInX({ delay: 0 })}
           initial="hidden"
           whileInView="visible"
