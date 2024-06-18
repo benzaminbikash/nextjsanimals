@@ -1,12 +1,14 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 import { fadeInX } from "@/constants/variants";
 
 function Hero() {
+  const router = useRouter();
   return (
-    <div className="w-full h-screen ">
+    <div className="w-full h-screen  ">
       <video className="w-full h-screen object-cover opacity-15" autoPlay muted>
         <source src="rabbit.mp4" type="video/mp4" />
       </video>
@@ -28,10 +30,16 @@ function Hero() {
           environment for all pets.
         </motion.p>
         <div className="flex gap-6">
-          <button className="border-white border-2 px-10 py-2 rounded-full  transition-all duration-500 delay-75 text-white  font-bold">
+          <button
+            onClick={() => router.push("/register")}
+            className="border-white border-2 px-10 py-2 rounded-full  transition-all duration-500 delay-75 text-white  font-bold hover:border-indigo-600"
+          >
             Register
           </button>
-          <button className="border-white border-2 px-10 py-2 rounded-full  transition-all duration-500 delay-75 text-white  font-bold">
+          <button
+            onClick={() => router.push("/login")}
+            className="border-white border-2 px-10 py-2 rounded-full  transition-all duration-500 delay-75 text-white  font-bold hover:border-indigo-600 shadow-lg"
+          >
             Login
           </button>
         </div>
