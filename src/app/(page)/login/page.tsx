@@ -1,19 +1,54 @@
 "use client";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { RxCross2 } from "react-icons/rx";
+
+interface Login {
+  email: string;
+  password: string;
+}
 
 function page() {
-  const [form, setform] = useState({});
+  const [error, setError] = useState<string | null>("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Login>();
 
-  const handleChange = (e: any) => {
-    setform({ ...form, [e.target.name]: e.target.value });
+  const handleApiLogin = async (data: Login) => {
+    const response = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
+    console.log(response);
+    if (response?.error == null) {
+      setError("");
+    } else {
+      const apierror = response?.error;
+      setError(`${apierror}`);
+    }
   };
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError("");
+      }, 6000);
+    }
+  }, [error]);
+  const removeCross = () => {
+    setError("");
+  };
+
   return (
     <div className="font-[sans-serif] text-white">
       <div className="min-h-screen flex flex-col items-center justify-center">
         <div className="grid md:grid-cols-2 items-center gap-4 max-w-6xl w-full p-4 m-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md">
           <div className="md:max-w-md w-full sm:px-6 py-4">
-            <form>
+            <form action="" onSubmit={handleSubmit(handleApiLogin)}>
               <div className="mb-12">
                 <h3 className="text-3xl font-extrabold">Sign in</h3>
                 <p className=" mt-4 ">
@@ -26,35 +61,55 @@ function page() {
                   </Link>
                 </p>
               </div>
+              {error && (
+                <div className="text-red my-2 bg-indigo-500 px-5 py-2 flex justify-between items-center ">
+                  {error}
+                  <RxCross2
+                    onClick={removeCross}
+                    className="font-semibold text-[25px] cursor-pointer "
+                  />
+                </div>
+              )}
               <div>
                 <label className=" block mb-2">Email</label>
                 <div className="relative flex items-center">
                   <input
+                    {...register("email", {
+                      required: {
+                        value: true,
+                        message: "This field is required.",
+                      },
+                    })}
                     name="email"
-                    type="text"
-                    required
+                    type="email"
                     className="w-full text-black  border-b border-gray-300 focus:border-[#333] px-2 py-3 outline-none"
                     placeholder="Enter email"
-                    onChange={handleChange}
                   />
                 </div>
+                <p className="text-red-500 mt-1">{errors?.email?.message}</p>
               </div>
               <div className="mt-8">
                 <label className=" block mb-2">Password</label>
                 <div className="relative flex items-center">
                   <input
+                    {...register("password", {
+                      required: {
+                        value: true,
+                        message: "This field is required.",
+                      },
+                    })}
                     name="password"
                     type="password"
-                    required
                     className="w-full text-black border-b border-gray-300 focus:border-[#333] px-2 py-3 outline-none"
                     placeholder="Enter password"
                   />
                 </div>
+                <p className="text-red-500 mt-1">{errors?.password?.message}</p>
               </div>
 
               <div className="mt-12">
                 <button
-                  type="button"
+                  type="submit"
                   className="w-full shadow-xl py-2.5 px-4  font-semibold rounded-full text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none"
                 >
                   Sign in

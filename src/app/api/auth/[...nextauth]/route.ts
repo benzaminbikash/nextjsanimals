@@ -7,10 +7,12 @@ import bcrypt from 'bcrypt'
 import { generateToken } from "@/utils/generateToken"
 
 const authOptions: NextAuthOptions = {
+    secret: 'Thisismysecreatedata',
     providers: [
         CredentialsProvider({
             id: 'credentials',
             name: 'credentials',
+
             credentials: {
                 email: {
                     label: "Email",
@@ -18,8 +20,9 @@ const authOptions: NextAuthOptions = {
                 },
                 password: { label: "Password", type: "password" },
             },
-            async authorize(credentials: any) {
+            async authorize(credentials: any, req) {
                 await DatabaseConnection()
+                console.log(credentials)
                 try {
                     const user = await User.findOne({ email: credentials.email })
                     if (!user) {

@@ -13,11 +13,11 @@ interface Data {
 function page() {
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
-  console.log("success", success);
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<Data>();
 
   const handleForm = async (data: Data) => {
@@ -33,6 +33,7 @@ function page() {
     if (result.status == "true") {
       setSuccess(result.message);
       setError("");
+      reset();
     } else {
       setError(result.message);
       setSuccess("");
@@ -124,12 +125,6 @@ function page() {
                           /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
                         message: "Invalid Email.",
                       },
-                      // validate: () => {
-                      //   return (
-                      //     error === "Email Already Exits." ||
-                      //     "Email already exit."
-                      //   );
-                      // },
                     })}
                   />
                 </div>
