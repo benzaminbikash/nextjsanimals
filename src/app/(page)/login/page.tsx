@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { RxCross2 } from "react-icons/rx";
+import { useRouter } from "next/navigation";
 
 interface Login {
   email: string;
@@ -12,6 +13,7 @@ interface Login {
 
 function page() {
   const [error, setError] = useState<string | null>("");
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -24,9 +26,9 @@ function page() {
       password: data.password,
       redirect: false,
     });
-    console.log(response);
     if (response?.error == null) {
       setError("");
+      router.push("/");
     } else {
       const apierror = response?.error;
       setError(`${apierror}`);

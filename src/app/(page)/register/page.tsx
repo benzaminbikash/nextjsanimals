@@ -29,7 +29,6 @@ function page() {
       body: JSON.stringify(data),
     });
     const result = await response.json();
-    console.log(result);
     if (result.status == "true") {
       setSuccess(result.message);
       setError("");
