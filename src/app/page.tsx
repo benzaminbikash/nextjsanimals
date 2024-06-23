@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import { data } from "@/constants/data";
 import HomeTitle from "@/components/HomeTitle";
 import ShowAnimal from "@/components/ShowAnimal";
+import Contact from "@/components/Contact";
 
 export default function Home() {
   return (
@@ -31,6 +32,7 @@ export default function Home() {
           return <ShowAnimal delay={0.4 * index} {...items} key={index} />;
         })}
       </div>
+      <Contact />
     </main>
   );
 }

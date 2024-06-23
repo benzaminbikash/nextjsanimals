@@ -21,7 +21,7 @@ function ShowAnimal(data: Animal) {
           alt="randomImage"
           className="w-full h-[500px]  rounded-t-2xl object-right-top  opacity-75 relative  "
         />
-        <div className="absolute top-0 bg-white w-full h-[500px] opacity-0 group-hover:opacity-75 -translate-x-2/3 group-hover:translate-x-0  transition-all duration-1000  flex flex-col justify-center items-center">
+        <div className="absolute top-0 bg-gray-400 w-full h-[500px] opacity-0 group-hover:opacity-75 -translate-x-2/3 group-hover:translate-x-0  transition-all duration-1000  flex flex-col justify-center items-center">
           <h1 className="text-black">Name:{data.name}</h1>
           <h1>Gender: </h1>
           <h1></h1>

@@ -10,7 +10,7 @@ import Sidebar from "./Sidebar";
 
 function Hero() {
   const router = useRouter();
-  const { data: session, status: authenticated } = useSession();
+  const { data: session, status: isauthenticated } = useSession();
   const [open, setopen] = useState(false);
 
   return (
@@ -23,13 +23,15 @@ function Hero() {
         >
           <source src="rabbit.mp4" type="video/mp4" />
         </video>
-        <div className="absolute top-10 px-24 ">
-          <GiHamburgerMenu
-            color="white"
-            size={25}
-            onClick={() => setopen(true)}
-          />
-        </div>
+        {session?.user != null && (
+          <div className="absolute top-10 px-24 ">
+            <GiHamburgerMenu
+              color="white"
+              size={25}
+              onClick={() => setopen(true)}
+            />
+          </div>
+        )}
 
         <div className="absolute top-[50%] grid grid-cols-2 px-24 gap-4 place-items-center">
           <motion.p
@@ -50,7 +52,7 @@ function Hero() {
           </motion.p>
 
           <div className="flex gap-6">
-            {!authenticated && (
+            {isauthenticated != "authenticated" && (
               <>
                 <button
                   onClick={() => router.push("/register")}
