@@ -7,7 +7,6 @@ import bcrypt from 'bcrypt'
 import { generateToken } from "@/utils/generateToken"
 
 const authOptions: NextAuthOptions = {
-    secret: 'Thisismysecreatedata',
     providers: [
         CredentialsProvider({
             id: 'credentials',
@@ -22,7 +21,6 @@ const authOptions: NextAuthOptions = {
             },
             async authorize(credentials: any, req) {
                 await DatabaseConnection()
-                console.log(credentials)
                 try {
                     const user = await User.findOne({ email: credentials.email })
                     if (!user) {
@@ -45,6 +43,7 @@ const authOptions: NextAuthOptions = {
             }
         })
     ],
+    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async jwt({ token, user }) {
             if (user) {

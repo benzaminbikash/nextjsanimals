@@ -6,10 +6,19 @@ import DatabaseConnection from "@/utils/db";
 import uploadOnCloudinary from "@/utils/cloudinaryManager";
 import animal from '@/model/Animal';
 import category from '@/model/Category';
+import { verifyToken } from '@/utils/generateToken';
 
 DatabaseConnection()
 export async function POST(req: NextRequest) {
     try {
+        const token = req.headers.get('authorization')?.split(" ")[1]
+        const decodedToken = verifyToken(token)
+        if (!token || !decodedToken) {
+            return new Response(
+                JSON.stringify({ error: "unauthorized (wrong or expired token" }),
+                { status: 403 }
+            );
+        }
         const formData = await req.formData();
         const file = formData.get('image') as unknown as File
         const name = formData.get('name') as string
