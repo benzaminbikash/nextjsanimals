@@ -1,9 +1,21 @@
 import jwt from "jsonwebtoken";
 
 export const generateToken = (user: any) => {
-  return jwt.sign(user, process.env.JWT_SECRET as string, { expiresIn: "2d" });
+  const token = jwt.sign({ _id: user._id }, "thisismyseacreateforjwt", {
+    expiresIn: "2d",
+  });
+  return token;
 };
+interface JwtPayload {
+  _id: string;
+}
 
-export const verifyToken = (decoded: any) => {
-  return jwt.verify(decoded, process.env.JWT_SECRET as string);
+export const verifyToken = (decoded: string) => {
+  try {
+    const data = jwt.verify(decoded, "thisismyseacreateforjwt") as JwtPayload;
+    return data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };

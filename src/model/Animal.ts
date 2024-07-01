@@ -25,6 +25,10 @@ var animalSchema = new mongoose.Schema({
     },
     price: {
         type: Number,
+    },
+    postBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }
 }, { timestamps: true });
 

@@ -59,6 +59,7 @@ const authOptions: NextAuthOptions = {
                 session.user._id = token._id?.toString()
                 session.user.name = token.name
                 session.user.email = token.email
+                session.user.accesstoken = token.accesstoken?.toString()
             }
             return session
         }

@@ -7,7 +7,7 @@ cloudinary.v2.config({
     api_secret: process.env.CLOUDING_API_SECRET,
 });
 
-const uploadOnCloudinary = async (uploadFile: string) => {
+const uploadOnCloudinary = async (uploadFile: any) => {
 
     try {
         if (!uploadFile) return null;

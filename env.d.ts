@@ -1,6 +1,7 @@
 namespace NodeJS {
     interface ProcessEnv {
-        MONGODBURL: string
+        MONGODBURL: string,
+        JWT_SECRET: string
     }
 }
 
