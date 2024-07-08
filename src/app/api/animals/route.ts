@@ -8,6 +8,7 @@ import category from '@/model/Category';
 import DatabaseConnection from "@/utils/db";
 import { verifyToken } from '@/utils/generateToken';
 import uploadOnCloudinary from "@/utils/cloudinaryManager";
+import { url } from 'inspector';
 
 DatabaseConnection()
 export async function POST(req: NextRequest) {
@@ -42,12 +43,27 @@ export async function POST(req: NextRequest) {
     }
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
     try {
-        const data = await animal.find().populate([
-            { path: "category", model: category }
-        ])
-        return NextResponse.json({ message: 'All Animals', data, status: 'success' }, { status: 200 })
+        const url = new URL(req.url)
+        const findcategory = url.searchParams.get('category')
+        if (findcategory) {
+            const data = await animal.find({ category: findcategory })
+            const findData = await category.findById(findcategory)
+            return NextResponse.json({ message: `Category of ${findData.title}`, data, status: 'success' }, { status: 200 })
+        }
+        else {
+            const data = await animal.find().populate([
+                { path: "category", model: category }
+            ])
+            return NextResponse.json({ message: 'All Animals', data, status: 'success' }, { status: 200 })
+        }
+
+
+
+
+
+
     } catch (error: any) {
         return NextResponse.json({ message: error.message, status: 'fail' }, { status: 400 })
     }

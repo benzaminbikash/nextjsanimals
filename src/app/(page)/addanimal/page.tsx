@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/navigation";
 
 const schema = yup.object({
   name: yup.string().required("This field is required."),
@@ -29,6 +30,7 @@ interface animal {
 function page() {
   const [api, setApi] = useState([]);
   const { data: session } = useSession();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -62,11 +64,10 @@ function page() {
         },
         body: formData,
       });
-      console.log(response);
       const result = await response.json();
-      console.log(result);
       if (result.status != "fail") {
         alert(result.message);
+        router.push("/");
       } else {
         alert(result.message);
       }
