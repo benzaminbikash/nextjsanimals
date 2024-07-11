@@ -4,11 +4,20 @@ export interface WIDTH {
 
 export interface TITLE {
   name: string;
+  categorylink: string;
 }
 
 export interface Animal {
-  id: number;
+  _id: string;
+  _v: number;
+  updatedAt: Date;
+  price: number | null;
+  postBy: string;
+  phone: number;
   name: string;
   image: string;
-  delay: number;
+  delay?: number;
+  gender: string;
+  createdAt: Date;
+  category: string;
 }

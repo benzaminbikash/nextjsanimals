@@ -30,6 +30,7 @@ interface animal {
 function page() {
   const [api, setApi] = useState([]);
   const { data: session } = useSession();
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -57,6 +58,7 @@ function page() {
     formData.append("category", data.category);
     formData.append("price", data.price);
     try {
+      setLoading(true);
       const response = await fetch("http://localhost:3000/api/animals", {
         method: "POST",
         headers: {
@@ -65,6 +67,7 @@ function page() {
         body: formData,
       });
       const result = await response.json();
+      setLoading(false);
       if (result.status != "fail") {
         alert(result.message);
         router.push("/");
@@ -151,7 +154,7 @@ function page() {
 
         <input
           type="submit"
-          value="Add Animal"
+          value={`${loading == true ? "Loading..." : "Add Animal"}`}
           className="px-10 py-2 rounded-full  border-2 border-white mt-4"
         />
       </form>
