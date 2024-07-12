@@ -50,6 +50,7 @@ function Sidebar({ open, setOpen }: PROPS) {
           </button>
           <button
             onClick={() => {
+              router.push("/myanimal");
               setOpen(false);
             }}
             className="my-3 transition-all shadow-sm shadow-indigo-300 text-white hover:text-white hover:bg-indigo-600 py-2  w-52 duration-150"

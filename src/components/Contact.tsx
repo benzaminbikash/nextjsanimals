@@ -52,7 +52,7 @@ export default function Contact() {
                   className="peer h-32 w-full resize-none rounded border border-gray-700 bg-black bg-opacity-40 py-1 px-3 text-base leading-6 text-gray-100 placeholder-transparent outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900"
                   placeholder="Message"
                 ></textarea>
-                <label className="absolute left-3 -top-6 bg-transparent text-sm leading-7 text-indigo-500 transition-all peer-placeholder-shown:left-3 peer-placeholder-shown:top-2 peer-placeholder-shown:bg-gray-900 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:left-3 peer-focus:-top-6 peer-focus:text-sm peer-focus:text-indigo-500">
+                <label className="absolute left-3 -top-6 bg-transparent text-sm leading-7 text-indigo-500 transition-all peer-placeholder-shown:left-3 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:left-3 peer-focus:-top-6 peer-focus:text-sm peer-focus:text-indigo-500">
                   Message
                 </label>
               </div>
@@ -64,11 +64,8 @@ export default function Contact() {
             </div>
 
             <div className="mt-8 w-full border-t border-gray-800 p-2 pt-8 text-center">
-              <a className="text-indigo-400">example@email.com</a>
-              <p className="my-5 leading-normal">
-                49 Smith St. <br />
-                Saint Cloud, MN 56301
-              </p>
+              <a className="text-indigo-400">benzaminbikash@email.com</a>
+              <p className="my-5 leading-normal">connect with us</p>
               <span className="inline-flex">
                 <a className="text-gray-500">
                   <svg
